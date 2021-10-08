@@ -1,0 +1,125 @@
+size 12
+Title: A Phase III Open-Label, Multi-Centre, Randomized Study Comparing NUC-1031 Plus Cisplatin to Gemcitabine Plus Cisplatin in Patients With Previously Untreated Locally Advanced or Metastatic Biliary Tract Cancer
+Phase: III
+Leading organization:NuCana plc
+Current Trial Status Date:2019-12-24
+
+Title: The COMPASSHER2 Trials (COMprehensive Use of Pathologic Response ASSessment to Optimize Therapy in HER2-Positive Breast Cancer): COMPASSHER2 Residual Disease (RD), a Double-Blinded, Phase III Randomized Trial of T-DM1 and Placebo Compared with T-DM1 and Tucatinib
+Phase: III
+Leading organization:Alliance for Clinical Trials in Oncology
+Current Trial Status Date:2021-01-06
+
+Title: A Phase 1b/3 Double-blind, Randomized, Active-controlled, 3-stage, Biomarker Adaptive Study of Tazemetostat or Placebo in Combination With Lenalidomide Plus Rituximab in Subjects With Relapsed/Refractory Follicular Lymphoma
+Phase: III
+Leading organization:Epizyme, Inc.
+Current Trial Status Date:2019-12-19
+
+Title: An Open-Label, Phase III Study of Platinum-Gemcitabine with or without Nivolumab in the First-Line Treatment of Recurrent or Metastatic Nasopharyngeal Carcinoma
+Phase: III
+Leading organization:NRG Oncology
+Current Trial Status Date:2021-06-14
+
+Title: Phase 3 Multicenter, Double-Blind, Placebo-Controlled Trial of Viralym-M (ALVR105) for the Treatment of Patients With Virus-Associated Hemorrhagic Cystitis After Allogeneic Hematopoietic Cell Transplant (HCT)
+Phase: III
+Leading organization:Allovir
+Current Trial Status Date:2021-01-06
+
+Title: Phase III Trial of Immunotherapy-Based Combination Therapy with or without Cytoreductive Nephrectomy for Metastatic Renal Cell Carcinoma (PROBE Trial)
+Phase: III
+Leading organization:SWOG
+Current Trial Status Date:2020-11-16
+
+Title: An Open-Label, Multicenter, Extension Study of AG-348 in Adult Subjects With Pyruvate Kinase Deficiency Previously Enrolled in AG-348 Studies
+Phase: III
+Leading organization:Agios Pharmaceuticals
+Current Trial Status Date:2021-01-28
+
+Title: Integration of Immunotherapy Into Adjuvant Therapy for Resected NSCLC: ALCHEMIST Chemo-IO (ACCIO)
+Phase: III
+Leading organization:Alliance for Clinical Trials in Oncology
+Current Trial Status Date:2020-06-03
+
+Title: A Phase 3 Randomized Trial for Patients with De Novo AML Comparing Standard Therapy Including Gemtuzumab Ozogamicin (GO) to CPX-351 with GO, and the Addition of the FLT3 Inhibitor Gilteritinib for Patients with FLT3 Mutations
+Phase: III
+Leading organization:Children's Oncology Group
+Current Trial Status Date:2020-07-20
+
+Title: A Prospective, Phase 3, Multi Center, Single-arm, Imaging Study Investigating the Safety and Diagnostic Performance of rhPSMA 7.3 (18F) Positron Emission Tomography (PET) Ligand in Men With Newly Diagnosed Prostate Cancer
+Phase: III
+Leading organization:Blue Earth Diagnostics
+Current Trial Status Date:2021-03-08
+
+Title: Randomized, Phase III Study of Early Intervention with Venetoclax and Obinutuzumab versus Delayed Therapy with Venetoclax and Obinutuzumab in Newly Diagnosed Asymptomatic High-Risk Patients with Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma (CLL/SLL): EVOLVE CLL/SLL Study
+Phase: III
+Leading organization:SWOG
+Current Trial Status Date:2020-12-14
+
+Title: A Phase 3b, Randomized, Double-blind Study of Nivolumab Combined With Ipilimumab Versus Nivolumab Monotherapy for Patients With Previously Untreated Advanced Renal Cell Carcinoma and Intermediate- or Poor-Risk Factors
+Phase: III
+Leading organization:Bristol-Myers Squibb
+Current Trial Status Date:2020-10-15
+
+
+[Done] exited with code=0 in 0.101 seconds
+
+[Running] python -u "/Users/gaurav/Desktop/BurningRock/Week3/Example/exampleAnalysis.py"
+size 12
+Title: A Phase III Open-Label, Multi-Centre, Randomized Study Comparing NUC-1031 Plus Cisplatin to Gemcitabine Plus Cisplatin in Patients With Previously Untreated Locally Advanced or Metastatic Biliary Tract Cancer
+Phase: III
+Leading organization: NuCana plc
+Current Trial Status Date: 2019-12-24
+
+Title: The COMPASSHER2 Trials (COMprehensive Use of Pathologic Response ASSessment to Optimize Therapy in HER2-Positive Breast Cancer): COMPASSHER2 Residual Disease (RD), a Double-Blinded, Phase III Randomized Trial of T-DM1 and Placebo Compared with T-DM1 and Tucatinib
+Phase: III
+Leading organization: Alliance for Clinical Trials in Oncology
+Current Trial Status Date: 2021-01-06
+
+Title: A Phase 1b/3 Double-blind, Randomized, Active-controlled, 3-stage, Biomarker Adaptive Study of Tazemetostat or Placebo in Combination With Lenalidomide Plus Rituximab in Subjects With Relapsed/Refractory Follicular Lymphoma
+Phase: III
+Leading organization: Epizyme, Inc.
+Current Trial Status Date: 2019-12-19
+
+Title: An Open-Label, Phase III Study of Platinum-Gemcitabine with or without Nivolumab in the First-Line Treatment of Recurrent or Metastatic Nasopharyngeal Carcinoma
+Phase: III
+Leading organization: NRG Oncology
+Current Trial Status Date: 2021-06-14
+
+Title: Phase 3 Multicenter, Double-Blind, Placebo-Controlled Trial of Viralym-M (ALVR105) for the Treatment of Patients With Virus-Associated Hemorrhagic Cystitis After Allogeneic Hematopoietic Cell Transplant (HCT)
+Phase: III
+Leading organization: Allovir
+Current Trial Status Date: 2021-01-06
+
+Title: Phase III Trial of Immunotherapy-Based Combination Therapy with or without Cytoreductive Nephrectomy for Metastatic Renal Cell Carcinoma (PROBE Trial)
+Phase: III
+Leading organization: SWOG
+Current Trial Status Date: 2020-11-16
+
+Title: An Open-Label, Multicenter, Extension Study of AG-348 in Adult Subjects With Pyruvate Kinase Deficiency Previously Enrolled in AG-348 Studies
+Phase: III
+Leading organization: Agios Pharmaceuticals
+Current Trial Status Date: 2021-01-28
+
+Title: Integration of Immunotherapy Into Adjuvant Therapy for Resected NSCLC: ALCHEMIST Chemo-IO (ACCIO)
+Phase: III
+Leading organization: Alliance for Clinical Trials in Oncology
+Current Trial Status Date: 2020-06-03
+
+Title: A Phase 3 Randomized Trial for Patients with De Novo AML Comparing Standard Therapy Including Gemtuzumab Ozogamicin (GO) to CPX-351 with GO, and the Addition of the FLT3 Inhibitor Gilteritinib for Patients with FLT3 Mutations
+Phase: III
+Leading organization: Children's Oncology Group
+Current Trial Status Date: 2020-07-20
+
+Title: A Prospective, Phase 3, Multi Center, Single-arm, Imaging Study Investigating the Safety and Diagnostic Performance of rhPSMA 7.3 (18F) Positron Emission Tomography (PET) Ligand in Men With Newly Diagnosed Prostate Cancer
+Phase: III
+Leading organization: Blue Earth Diagnostics
+Current Trial Status Date: 2021-03-08
+
+Title: Randomized, Phase III Study of Early Intervention with Venetoclax and Obinutuzumab versus Delayed Therapy with Venetoclax and Obinutuzumab in Newly Diagnosed Asymptomatic High-Risk Patients with Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma (CLL/SLL): EVOLVE CLL/SLL Study
+Phase: III
+Leading organization: SWOG
+Current Trial Status Date: 2020-12-14
+
+Title: A Phase 3b, Randomized, Double-blind Study of Nivolumab Combined With Ipilimumab Versus Nivolumab Monotherapy for Patients With Previously Untreated Advanced Renal Cell Carcinoma and Intermediate- or Poor-Risk Factors
+Phase: III
+Leading organization: Bristol-Myers Squibb
+Current Trial Status Date: 2020-10-15
