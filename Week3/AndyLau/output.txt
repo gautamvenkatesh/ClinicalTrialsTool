@@ -1,0 +1,11 @@
+size 2
+Title: Evaluation of a Causal Association between Testosterone Levels, Dementia, and Adverse Mental Health Outcomes: A Mendelian Randomization Analysis
+Phase: NA
+Leading organization: M D Anderson Cancer Center
+Current Trial Status Date: 2020-02-13
+
+Title: Memantine for Prevention of Cognitive Decline during Adjuvant or Neoadjuvant Chemotherapy in Patients with Breast Cancer
+Phase: II
+Leading organization: UNC Lineberger Comprehensive Cancer Center
+Current Trial Status Date: 2020-06-18
+
