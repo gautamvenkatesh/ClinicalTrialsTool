@@ -10,7 +10,7 @@ def get_new_trials(date):
 
 
 
-    # SELECT VALUES TO INCLUDE IN DATAFRAME
+    # SELECT VALUES TO INCLUDE IN DATAFRAME , ******EDIT THISSSS********
     columns = ['nci_id', 'lead_org', 'official_title', 'current_trial_status', 'start_date',
     'completion_date', 'eligibility', 'detail_description', 'primary_purpose', 'intervention', 
     'sites', 'phase', 'genes', 'url']
@@ -22,11 +22,11 @@ def get_new_trials(date):
     if type(date) == type(datetime.date(2021, 1, 1)):
         date = str(date)
 
-    today = str(datetime.date.today() - datetime.timedelta(days=1))
+    yesterday = str(datetime.date.today() - datetime.timedelta(days=1))
 
     while True:
 
-        url = "https://clinicaltrialsapi.cancer.gov/api/v2/trials?size=50&record_verification_date_gte=" + date
+        url = "https://clinicaltrialsapi.cancer.gov/api/v2/trials?size=50&record_verification_date_gte=" + yesterday
         url += '&from=' + str(start_index) 
 
         payload = {}
@@ -59,4 +59,4 @@ def get_new_trials(date):
 
     return data_df
 
-print(get_new_trials(datetime.date(2021, 10, 19)).sort_values('nci_id', ascending=False))
+print(get_new_trials().sort_values('nci_id', ascending=False))
