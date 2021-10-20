@@ -3,7 +3,7 @@ import json
 import datetime
 import pandas as pd
 
-def get_new_trials(date):
+def get_new_trials():
     '''
     Returns a DataFrame containing information about all trials with record verificaiton dates on or after date (datetime.date object)
     '''
@@ -19,8 +19,6 @@ def get_new_trials(date):
 
     start_index = 0
 
-    if type(date) == type(datetime.date(2021, 1, 1)):
-        date = str(date)
 
     yesterday = str(datetime.date.today() - datetime.timedelta(days=1))
 
@@ -56,6 +54,9 @@ def get_new_trials(date):
 
     # Changes start_date to a date object, can do for other date coluns as well
     data_df['start_date'] = [datetime.date.fromisoformat(date) for date in data_df['start_date']]
+
+    data_df.sort_values('nci_id', ascending=False, inplace=True)
+    data_df.index = [i for i in range(len(data_df))]
 
     return data_df
 
