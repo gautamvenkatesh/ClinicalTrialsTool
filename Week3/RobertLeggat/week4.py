@@ -5,7 +5,7 @@ import pandas as pd
 
 def get_new_trials():
     '''
-    Returns a DataFrame containing information about all trials with record verificaiton dates on or after date (datetime.date object)
+    Returns a DataFrame containing information about all trials with record verificaiton dates on or after yesterday
     '''
 
 
