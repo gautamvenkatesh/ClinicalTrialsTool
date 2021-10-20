@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "4db9598b-e2c8-4229-bd61-d8218c7fe5a8",
+		"name": "Week 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://clinicaltrialsapi.cancer.gov/api/v2/trials?size=30&sort=_current_trial_status_sort_order&order=asc&trial_status=OPEN",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "wucyqb6KsT94qFV7W8aog8XokfTjfIBKIQoA0hgj",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://clinicaltrialsapi.cancer.gov/api/v2/trials?size=30&sort=_current_trial_status_sort_order&order=asc&trial_status=OPEN",
+					"protocol": "https",
+					"host": [
+						"clinicaltrialsapi",
+						"cancer",
+						"gov"
+					],
+					"path": [
+						"api",
+						"v2",
+						"trials"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "30"
+						},
+						{
+							"key": "sort",
+							"value": "_current_trial_status_sort_order"
+						},
+						{
+							"key": "order",
+							"value": "asc"
+						},
+						{
+							"key": "trial_status",
+							"value": "OPEN"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
