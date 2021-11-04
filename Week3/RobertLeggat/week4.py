@@ -60,4 +60,4 @@ def get_new_trials():
 
     return data_df
 
-print(get_new_trials().sort_values('nci_id', ascending=False))
+print(get_new_trials())
