@@ -86,7 +86,7 @@ def find_strings(brief_sum, descrip):
 
 
 #testing find_genes and find_strings
-#print(find_genes("hi my name is. ERCC3, MED12, HLA-A-MCL1-LYN. (FLT4)", "I like world STAT3, EED. CSF1R.")) 
+print(find_genes("hi my name is. ERCC3, MED12, HLA-A-MCL1-LYN. (FLT4)", "I like world STAT3, EED. CSF1R.")) 
 #EED is not found because of extra spaces surrounding it in genes.
 #print(find_strings("hi mutations are solid tumor. I-pathway!", "Biomarker is .gene")) 
 
