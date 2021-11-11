@@ -90,28 +90,8 @@ def find_strings(brief_sum, descrip):
 #testing find_genes and find_strings
 #print(find_genes("hi my name is. ERCC3, MED12, HLA-A-MCL1-LYN. (FLT4)", "I like world STAT3, EED. CSF1R.")) 
 #EED is not found because of extra spaces surrounding it in genes.
-print(find_strings("hi mutations are solid tumor. I-pathway!", "Biomarker is .gene. !SEQUENCING! NGS!")) 
-
+#print(find_strings("hi mutations are solid tumor. I-pathway!", "Biomarker is .gene. !SEQUENCING! NGS!")) 
 
 
 #testing get_latest_nci
 #print(get_latest_nci(12))
-
-# def export_data_to_es(dataframe):
-    # making sure no null or blank values in dataframe
-#    for column in dataframe:
-#        dataframe[column] = dataframe[column].apply(safe_value)
-#
-#    df_iter = dataframe.iterrows()
-#    for index, document in df_iter:
-#        # yield info from each cell in each row of dataframe
-#        yield {
-#            
-#        }
-#    raise StopIteration
-
-#def safe_value(field_val):
-#    return field_val if not pd.isna(field_val) else "Other"
-
-#running export_data_to_est and inputting returned dataframe from Sally's get_new_trials() method
-#helpers.bulk(es_client, export_data_to_es(get_new_trials()))
