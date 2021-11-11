@@ -68,12 +68,12 @@ def find_genes(brief_sum, descrip):
      found_genes = []
      split_strings = re.findall(r"[A-Z0-9]+[-]*[A-Z0-9]+", brief_sum + " " + descrip)
      for word in split_strings:
-         if word in genes:
+         if word in genes and word not in found_genes:
              found_genes.append(word)
          if '-' in word:
              split_word = re.findall(r"[A-Z0-9]+", word)
              for wrd in split_word:
-                 if wrd in genes:
+                 if wrd in genes and wrd not in found_genes:
                      found_genes.append(wrd)
      return found_genes
 
@@ -88,7 +88,7 @@ def find_strings(brief_sum, descrip):
 
 
 #testing find_genes and find_strings
-#print(find_genes("hi my name is. ERCC3, MED12, HLA-A-MCL1-LYN. (FLT4)", "I like world STAT3, EED. CSF1R.")) 
+#print(find_genes("hi my name is. ERCC3, MED12, HLA-A-MCL1-LYN. (FLT4)", "I like world STAT3, EED. CSF1R. EED")) 
 #EED is not found because of extra spaces surrounding it in genes.
 #print(find_strings("hi mutations are solid tumor. I-pathway!", "Biomarker is .gene. !SEQUENCING! NGS!")) 
 
