@@ -24,8 +24,9 @@ def api_getter(date, start_index, size):
 
     return full_data
 
-def sorting_df(df):
-    n_i = get_latest_nci(14)
+def sorting_df(df, nci_id = get_latest_nci(14)):
+    if len(nci_id) == 15:
+        nci_id = nci_id.str[4:8] + df['nci_id'].str[9:14]
 
     df.sort_values('nci_id', ascending=False, inplace=True)
     df.index = [i for i in range(len(df))]
@@ -33,7 +34,7 @@ def sorting_df(df):
 
     df['nci_id_num'] = df['nci_id'].str[4:8] + df['nci_id'].str[9:14]
 
-    new_df = df.where(df['nci_id_num'] >= '202110770')
+    new_df = df.where(df['nci_id_num'] >= nci_id)
     new_df = new_df.dropna()
 
     return new_df
@@ -57,8 +58,8 @@ def get_new_trials():
 
     data_df = pd.DataFrame(columns=columns)
 
-    #date = str(datetime.date.today() - datetime.timedelta(days=1))
-    date = '2021-10-30'
+    date = str(datetime.date.today() - datetime.timedelta(days=1))
+    #date = '2021-10-30'
 
     # getting the total
     small_data = api_getter(date, '0', '1').json()
