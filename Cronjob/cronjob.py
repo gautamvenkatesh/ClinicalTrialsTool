@@ -2,6 +2,7 @@ import requests
 import json
 import datetime
 import pandas as pd
+import numpy as np
 from Utils import *
 
 def api_getter(date, start_index, size):
@@ -25,17 +26,25 @@ def api_getter(date, start_index, size):
     return full_data
 
 def sorting_df(df, nci_id):
-    if len(nci_id) == 15:
-        nci_id = nci_id.str[4:8] + df['nci_id'].str[9:14]
 
     df.sort_values('nci_id', ascending=False, inplace=True)
     df.index = [i for i in range(len(df))]
 
-
-    df['nci_id_num'] = df['nci_id'].str[4:8] + df['nci_id'].str[9:14]
-
-    new_df = df.where(df['nci_id_num'] >= nci_id)
+    new_df = df.where(df['nci_id'] >= nci_id)
     new_df = new_df.dropna()
+
+    gene_list = []
+    string_list = []
+
+    for i in range(len(new_df['brief_summary'])):
+        if new_df['brief_summary'].iloc[i] != np.nan and new_df['detail_description'].iloc[i] != np.nan:
+            gene_list.append(find_genes(new_df['brief_summary'].iloc[i], new_df['detail_description'].iloc[i]))
+            string_list.append(find_strings(new_df['brief_summary'].iloc[i], new_df['detail_description'].iloc[i]))
+        else:
+            gene_list.append([])
+            string_list.append([])
+    new_df['found_genes'] = gene_list
+    new_df['found_strings'] = string_list
 
     return new_df
 
@@ -58,14 +67,13 @@ def get_new_trials(nci_id = get_latest_nci(14)):
 
     data_df = pd.DataFrame(columns=columns)
 
-    date = str(datetime.date.today() - datetime.timedelta(days=1))
-    #date = '2021-10-30'
+    #date = str(datetime.date.today() - datetime.timedelta(days=1))
+    nci_id = 'NCI-2021-01375'
+    date = '2021-10-30'
 
     # getting the total
     small_data = api_getter(date, '0', '1').json()
     total = small_data['total']
-    #return small_data
-    #return small_data['total']
 
     for i in range(0, total, 50) :
         full_data = api_getter(date, i, '50').json()
@@ -79,7 +87,7 @@ def get_new_trials(nci_id = get_latest_nci(14)):
 
         for trial in full_data['data']:
             #print(trial.items())
-            data_df = data_df.append({key: str(value) for key, value in trial.items() if key in columns}, ignore_index=True)
+            data_df = data_df.append({key: value for key, value in trial.items() if key in columns}, ignore_index=True)
 
     # Changes start_date to a date object, can do for other date coluns as well
     #data_df['start_date'] = [datetime.date.fromisoformat(date) for date in data_df['start_date']]
