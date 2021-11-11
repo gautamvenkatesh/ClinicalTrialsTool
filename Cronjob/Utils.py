@@ -20,7 +20,6 @@ def get_latest_nci(num_prev_days):
     max_nci_id = 0
 
     while start_index < total:
-        #likely can replace lines 21 to 28 with Sally's api_getter() function
         url = "https://clinicaltrialsapi.cancer.gov/api/v2/trials?size=50&record_verification_date_gte=" + formatted_date + '&from=' + str(start_index)
 
         payload = {}
@@ -40,8 +39,11 @@ def get_latest_nci(num_prev_days):
         
         start_index += 50
     
+    if max_nci_id == 0:
+        return "There are no trials that have a record verification date from within the past " + str(num_prev_days) + " days. Please increase num_prev_days."
     #verify that max_nci_id is the greatest nci_id
-    return verify_greatest_nci(max_nci_id)
+    else:
+        return verify_greatest_nci(max_nci_id)
 
 def verify_greatest_nci(nci_id):
     nci_id_plus_one = nci_id + 1
@@ -59,7 +61,8 @@ def verify_greatest_nci(nci_id):
     if total > 0:
         return verify_greatest_nci(nci_id_plus_one)
     else:
-        return nci_id
+        #return nci_id
+        return "NCI-" + str(nci_id)[0:4] + "-" + str(nci_id)[4:]
 
 def find_genes(brief_sum, descrip):
      found_genes = []
@@ -85,12 +88,12 @@ def find_strings(brief_sum, descrip):
 #testing find_genes and find_strings
 #print(find_genes("hi my name is. ERCC3, MED12, HLA-A-MCL1-LYN. (FLT4)", "I like world STAT3, EED. CSF1R.")) 
 #EED is not found because of extra spaces surrounding it in genes.
-print(find_strings("hi mutations are solid tumor. I-pathway!", "Biomarker is .gene")) 
+#print(find_strings("hi mutations are solid tumor. I-pathway!", "Biomarker is .gene")) 
 
 
 
 #testing get_latest_nci
-# print(get_latest_nci(7))
+print(get_latest_nci(12))
 
 # def export_data_to_es(dataframe):
     # making sure no null or blank values in dataframe
