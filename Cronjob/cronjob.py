@@ -24,7 +24,7 @@ def api_getter(date, start_index, size):
 
     return full_data
 
-def sorting_df(df, nci_id = get_latest_nci(14)):
+def sorting_df(df, nci_id):
     if len(nci_id) == 15:
         nci_id = nci_id.str[4:8] + df['nci_id'].str[9:14]
 
@@ -40,7 +40,7 @@ def sorting_df(df, nci_id = get_latest_nci(14)):
     return new_df
 
 
-def get_new_trials():
+def get_new_trials(nci_id = get_latest_nci(14)):
     # Parameters: date, nci_id
     '''
     Returns a DataFrame containing information about all trials with record verificaiton dates on or after yesterday
@@ -84,6 +84,6 @@ def get_new_trials():
     # Changes start_date to a date object, can do for other date coluns as well
     #data_df['start_date'] = [datetime.date.fromisoformat(date) for date in data_df['start_date']]
 
-    return sorting_df(data_df)
+    return sorting_df(data_df, nci_id)
 
 print(get_new_trials())
