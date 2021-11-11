@@ -2,6 +2,9 @@ import requests
 import json
 import datetime
 import pandas as pd
+import re
+from constants import genes
+from constants import FLAGGED_STRINGS
 
 # Checks the past specified number of days (num_prev_days) and finds the greatest nci id from those trials. Then verifies that the 
 # max nci_id it found is truly the greatest by checking for a trial with an nci_id that is 1 greater than the one found. If it finds 
@@ -57,6 +60,34 @@ def verify_greatest_nci(nci_id):
         return verify_greatest_nci(nci_id_plus_one)
     else:
         return nci_id
+
+def find_genes(brief_sum, descrip):
+     found_genes = []
+     split_strings = re.findall(r"[A-Z0-9]+[-]*[A-Z0-9]+", brief_sum + " " + descrip)
+     for word in split_strings:
+         if word in genes:
+             found_genes.append(word)
+         if '-' in word:
+             split_word = re.findall(r"[A-Z0-9]+", word)
+             for wrd in split_word:
+                 if wrd in genes:
+                     found_genes.append(wrd)
+     return found_genes
+
+def find_strings(brief_sum, descrip):
+    found_strings = []
+    for word in FLAGGED_STRINGS:
+        if (word in brief_sum) or (word in descrip):
+            found_strings.append(word)
+    return found_strings
+
+
+#testing find_genes and find_strings
+#print(find_genes("hi my name is. ERCC3, MED12, HLA-A-MCL1-LYN. (FLT4)", "I like world STAT3, EED. CSF1R.")) 
+#EED is not found because of extra spaces surrounding it in genes.
+print(find_strings("hi mutations are solid tumor. I-pathway!", "Biomarker is .gene")) 
+
+
 
 #testing get_latest_nci
 # print(get_latest_nci(7))

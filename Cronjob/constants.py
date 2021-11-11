@@ -1,3 +1,6 @@
+# is there a reason that some of the genes have spaces surrounding them while others don't? Can I delete the extra spaces?
+# can I delete the spaces surrounding the words in FLAGGED_STRINGS too?
+# should I account for capitalized flagged string words?
 genes = ['EPHA7', 'ERCC2', 'CTNNB1', 'GID4', 'KDM5C', 'IFNGR1', 'CDKN2A', 'BCORL1', 'SOX9', 'ALOX12B', 'PDCD1LG2', 'H3F3C', 'ZBTB2', 'NTRK3',
            'CDK6', 'BCL2L1', 'MUTYH', 'DCUN1D1', 'AKT1', 'FGF19', 'NBN', 'CTNNA1', 'ERBB3', 'RAC1', 'BARD1', 'ERG', 'FYN', 'STK11', 'IRF4', 'PRKDC',
            'NUTM1', 'POLE', 'MAP3K1', 'KMT2C', 'PBRM1', 'FANCI', 'PARP2', 'HIST1H3C', 'SLIT2', 'CDKN2C', 'SMARCD1', 'RAD50', 'CIC', 'FLT3', 'GATA1',
@@ -32,18 +35,18 @@ genes = ['EPHA7', 'ERCC2', 'CTNNB1', 'GID4', 'KDM5C', 'IFNGR1', 'CDKN2A', 'BCORL
            'EPHB4', 'WRN', 'FGFR4', ' EED ', 'INHA', 'CSF1R']
 
 FLAGGED_STRINGS = [
-   " mutation ",
-   " mutations ",
-   " receptor ",
-   " pathway ",
-   " biomarker ",
-   " biomarkers ",
-   " gene ",
-   " genes ",
-   " solid tumor ",
-   " advanced solid tumors ",
-   " genetic alterations ",
-   " NGS ",
-   " sequencing "
+   "mutation",
+   "mutations",
+   "receptor",
+   "pathway",
+   "biomarker",
+   "biomarkers",
+   "gene",
+   "genes",
+   "solid tumor",
+   "advanced solid tumors",
+   "genetic alterations",
+   "NGS",
+   "sequencing"
 ]
 
