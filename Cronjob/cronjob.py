@@ -31,18 +31,17 @@ def sorting_df(df, nci_id):
     df.index = [i for i in range(len(df))]
 
     new_df = df.where(df['nci_id'] >= nci_id)
-    new_df = new_df.dropna()
+    new_df = new_df.dropna(subset=['nci_id'])
+
+    values = {'brief_summary': "", 'detail_description': ""}
+    new_df.fillna(value=values)
 
     gene_list = []
     string_list = []
 
-    for i in range(len(new_df['brief_summary'])):
-        if new_df['brief_summary'].iloc[i] != np.nan and new_df['detail_description'].iloc[i] != np.nan:
-            gene_list.append(find_genes(new_df['brief_summary'].iloc[i], new_df['detail_description'].iloc[i]))
-            string_list.append(find_strings(new_df['brief_summary'].iloc[i], new_df['detail_description'].iloc[i]))
-        else:
-            gene_list.append([])
-            string_list.append([])
+    for i in range(len(new_df.index)):
+        gene_list.append(find_genes(new_df['brief_summary'].iloc[i], new_df['detail_description'].iloc[i]))
+        string_list.append(find_strings(new_df['brief_summary'].iloc[i], new_df['detail_description'].iloc[i]))
     new_df['found_genes'] = gene_list
     new_df['found_strings'] = string_list
 
