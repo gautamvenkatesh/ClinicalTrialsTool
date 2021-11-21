@@ -5,45 +5,8 @@ import pandas as pd
 import re
 from pymongo import MongoClient
 from constants import FLAGGED_STRINGS, genes
-
-CONNECTION_STRING = "mongodb+srv://upsync:upsync@cluster0.p5teq.mongodb.net/test"
-
-def update_latest_nci_id(nci_id):
-
-    client = MongoClient(CONNECTION_STRING)
-    trials_db = client['burning_rock_db_v2']
-    trials = trials_db['latest']
-    trials.delete_many({})
-    trials.insert_one({'nci_id': nci_id})
-
-def get_latest_nci_id():
-    client = MongoClient(CONNECTION_STRING)
-    trials_db = client['burning_rock_db_v2']
-    trials = trials_db['latest']
-    nci_id = trials.find_one()
-    return nci_id['nci_id']
-
-def find_genes(brief_sum, descrip):
-     found_genes = []
-     split_strings = re.findall(r"[A-Z0-9]+[-]*[A-Z0-9]+", brief_sum + " " + descrip)
-     for word in split_strings:
-         if word in genes and word not in found_genes:
-             found_genes.append(word)
-         if '-' in word:
-             split_word = re.findall(r"[A-Z0-9]+", word)
-             for wrd in split_word:
-                 if wrd in genes and wrd not in found_genes:
-                     found_genes.append(wrd)
-     return found_genes
-
-def find_strings(brief_sum, descrip):
-    found_strings = []
-    if ("NGS" in brief_sum) or ("NGS" in descrip):
-        found_strings.append("NGS")
-    for word in FLAGGED_STRINGS:
-        if (word in brief_sum.lower()) or (word in descrip.lower()):
-            found_strings.append(word)
-    return found_strings
+from mongodb_client import get_latest_nci_id
+from utils import find_genes, find_strings
 
 def api_getter(date, start_index, size):
     #add more specifications
@@ -128,23 +91,3 @@ def get_new_trials():
     
     return sorting_df(data_df, nci_id)
 
-def put_trails():
-    # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
-    client = MongoClient(CONNECTION_STRING)
-
-    # Create the database for our example (we will use the same database throughout the tutorial
-    trials_db = client['burning_rock_db_v2']
-
-    # Creates a collection in the trials database
-    trials = trials_db['trials']
-
-    # CHANGE THIS: assign trials_df to a dataframe of accessed trials
-    new_trials = get_new_trials()
-    
-    if not new_trials.empty:
-        max_nci = max(new_trials['nci_id'])
-        update_latest_nci_id(max_nci)
-        # Adds to the trials collections
-        trials.insert_many(new_trials.to_dict('records'))
-
-put_trails()

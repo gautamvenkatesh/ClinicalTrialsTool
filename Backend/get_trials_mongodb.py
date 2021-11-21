@@ -23,5 +23,3 @@ def get_trials_from_db():
     sorted_trials = trials_collection.find({}).sort('nct_id', pymongo.DESCENDING).limit(100)
 
     return dumps(sorted_trials)
-
-
