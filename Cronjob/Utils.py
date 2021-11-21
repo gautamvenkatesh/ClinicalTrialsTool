@@ -29,6 +29,9 @@ def get_latest_nci(num_prev_days):
 
         full_data = requests.request("GET", url, headers=headers, data=payload).json()
 
+        if not full_data:
+            break
+
         if start_index == 0:
             total = full_data['total']
         
@@ -94,4 +97,4 @@ def find_strings(brief_sum, descrip):
 
 
 #testing get_latest_nci
-#print(get_latest_nci(12))
+#print(get_latest_nci(5))

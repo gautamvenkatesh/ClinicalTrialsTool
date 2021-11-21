@@ -4,7 +4,6 @@ from bson.json_util import dumps
 
 def get_database():
 
-  
     CONNECTION_STRING = "mongodb+srv://upsync:upsync@cluster0.p5teq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
     client = MongoClient(CONNECTION_STRING)
@@ -21,7 +20,7 @@ def get_trials_from_db():
     trials_collection = dbname['trials']
 
     #sort by descending for newest trials first
-    sorted_trials = trials_collection.find({}).sort('nct_id', pymongo.DESCENDING)
+    sorted_trials = trials_collection.find({}).sort('nct_id', pymongo.DESCENDING).limit(100)
 
     return dumps(sorted_trials)
 
