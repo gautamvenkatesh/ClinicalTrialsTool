@@ -17,10 +17,6 @@ from requests import api
 # search_string, sort type, gene string,  phase, status
 
 # database = None
-with open('test_data.json', 'r') as content:
-    data = json.load(content)['data']
-
-new_string = json.dumps(data, indent=2)
 
 #Converts date structure of year-month-day to datetime object 
 def convert_dateString_to_dateTime(date): 
@@ -38,10 +34,10 @@ INCLUDE_PARAMETERS = ['total', 'record_verification_date', 'nci_id', 'lead_org',
 
 
 
-def filter_data(search_string=None, sort_type=None, status_filter=[], phase_filter=[], company_blacklist=[]):
+def filter_data(search_string=None, sort_type=None, status_filter=[], phase_filter=[], company_blacklist=[], start=0):
     
     # search_string = search_string.lower() if search_string else None
-    api_base_url = 'https://clinicaltrialsapi.cancer.gov/api/v2/trials?size=50&'
+    api_base_url = f'https://clinicaltrialsapi.cancer.gov/api/v2/trials?size=50&from={start}&'
     # 50 is the limit
     headers= {'x-api-key': 'T0GzvGRulK6fFeFVzjmeo1Est2KbWeW25OXpyszf'}
     #API doesnt have sorting nor blacklist fields
@@ -56,8 +52,10 @@ def filter_data(search_string=None, sort_type=None, status_filter=[], phase_filt
     for param in INCLUDE_PARAMETERS: 
         api_base_url = api_base_url + 'include=' + param + '&'
 
-
-    r = requests.get(api_base_url, headers= headers).json()['data']
+    try:
+        r = requests.get(api_base_url, headers= headers).json()['data']
+    except:
+        return []
     filteredData = list(filter(lambda trial: trial['lead_org'].lower() not in company_blacklist , r))
 
     if sort_type == 'start_date':
@@ -66,6 +64,6 @@ def filter_data(search_string=None, sort_type=None, status_filter=[], phase_filt
 
 
 
-
+print(filter_data("lung cancer", start=2204))
 
 
