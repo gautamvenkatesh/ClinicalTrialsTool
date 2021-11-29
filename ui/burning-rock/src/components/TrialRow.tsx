@@ -9,11 +9,12 @@ interface TrialRowProps {
 }
 
  const TrialRow: React.FC<TrialRowProps> = ({trials}) => {
+   //console.log(trials)
     return (
         <Table.Row>
             {Object.keys(trials).map((value) => {
                 <Table.Cell>
-                    value
+                    {value}
                 </Table.Cell>
             })}
         </Table.Row>
