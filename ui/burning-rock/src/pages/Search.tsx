@@ -1,9 +1,11 @@
 /**
  * Search page for trials
  */
-import React, { useState } from 'react'
-import { Button, Dropdown, DropdownProps, Form } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import React, { useState } from 'react';
+import { Button, Dropdown, DropdownProps, Form } from 'semantic-ui-react';
+import { Routes, Route, Link, Navigate, useNavigate} from "react-router-dom";
+import 'semantic-ui-css/semantic.min.css';
+import NewTrials from './NewTrials';
 
 const SORT_TYPES = [
     { key: 'start_date', text: 'Start Date', value: 'start_date'},
@@ -53,6 +55,8 @@ const Search = () => {
     const [sortType, setSortType] = useState('Relevance')
     const [phaseTypes, setPhaseTypes] = useState(Array())
 
+    let navigate = useNavigate() 
+
     const onChangeSearchString = (event: { target: { value: React.SetStateAction<string> } }) => {
         setSearchString(event.target.value)
     }
@@ -68,6 +72,10 @@ const Search = () => {
     const onChangePhaseTypes = (event:React.SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => {
         const updatedPhasePref = Array(data.value)
         setPhaseTypes(updatedPhasePref)
+    }
+    const onSubmit = () => {
+
+        return navigate('/results', {state:{searchString:searchString, trialStatuses: trialStatuses, sortType: sortType, phaseTypes: phaseTypes}})
     }
 
     return (
@@ -87,10 +95,10 @@ const Search = () => {
             </Form.Field>
             <Form.Field style = {{minWidth: '250px'}}>
                 <label>Sort Type</label>
-                {DropdownMenu(SORT_TYPES, false,  onChangeSortType )} 
+                {DropdownMenu(SORT_TYPES, false, onChangeSortType)} 
             </Form.Field>
             <Form.Field>
-                <Button type='submit'>Submit</Button>
+                <Button type='submit' onClick={onSubmit}>Submit</Button>
             </Form.Field>
         </Form>
     
@@ -100,8 +108,3 @@ const Search = () => {
  
 
 export default Search;
- 
-
-
-
-
