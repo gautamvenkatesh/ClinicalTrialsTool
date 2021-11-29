@@ -3,7 +3,7 @@
  */
 
 export interface Trial {
-    record_verification_data: string;
+    record_verification_date: string;
     nci_id: number;
     official_title: string;
     lead_org: string;
