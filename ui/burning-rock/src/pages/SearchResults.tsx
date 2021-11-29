@@ -13,8 +13,10 @@ const INCLUDE_PARAMETERS = ['total', 'record_verification_date', 'nci_id', 'lead
     // 1. Debug generateResults. As of now, it seems that the URl isn't properly being constructed in the string 
     // 2. Add the UI table to display search results (take ex. from NewTrials) from the 'results' state variable
     // 3. Use react semantic ui pagination. Create a function to update currPage when you load the next page
-    //      - Updating currPage should trigger a useEffect to update the next 50 results 
-
+    //     - Updating currPage should trigger a useEffect to update the next 50 results 
+    //     **** Once API call is made, you can get total # of trials
+    //          - Use this number divided by 50 to define the total # pages for semantic ui pagination 
+    //          - Have an onClick function that updates currPage with setCurrPage 
  const SearchResults: React.FC = () => {
     //use axiosProps to access GET request metadata (.searchString, .trialStatuses, .phaseTypes, .sortType)
     const axiosProps = useLocation().state
