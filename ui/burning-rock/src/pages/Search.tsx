@@ -52,7 +52,7 @@ const DropdownMenu = (options: Array<{}>, multiple: boolean, onChangeMethod: ((e
 const Search = () => {
     const [searchString, setSearchString] = useState("")
     const [trialStatuses, setTrialStatuses] = useState(Array())
-    const [sortType, setSortType] = useState('Relevance')
+    const [sortType, setSortType] = useState('relevance')
     const [phaseTypes, setPhaseTypes] = useState(Array())
 
     let navigate = useNavigate() 
@@ -75,7 +75,11 @@ const Search = () => {
     }
     const onSubmit = () => {
 
-        return navigate('/results', {state:{searchString:searchString, trialStatuses: trialStatuses, sortType: sortType, phaseTypes: phaseTypes}})
+        return navigate('/results', {state:
+            {searchString:searchString, 
+            trialStatuses: trialStatuses, 
+            sortType: sortType, 
+            phaseTypes: phaseTypes}})
     }
 
     return (
