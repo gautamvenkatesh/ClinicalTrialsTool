@@ -6,7 +6,7 @@ import re
 from pymongo import MongoClient
 from constants import FLAGGED_STRINGS, genes
 from mongodb_client import get_latest_nci_id
-from utils import find_genes, find_strings
+from Utils import find_genes, find_strings
 
 def api_getter(date, start_index, size):
     #add more specifications
