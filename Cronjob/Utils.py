@@ -68,19 +68,27 @@ def verify_greatest_nci(nci_id):
         return "NCI-" + str(nci_id)[0:4] + "-" + str(nci_id)[4:]
 
 def find_genes(brief_sum, descrip):
-     found_genes = []
-     split_strings = re.findall(r"[A-Z0-9]+[-]*[A-Z0-9]+", brief_sum + " " + descrip)
-     for word in split_strings:
-         if word in genes and word not in found_genes:
-             found_genes.append(word)
-         if '-' in word:
-             split_word = re.findall(r"[A-Z0-9]+", word)
-             for wrd in split_word:
-                 if wrd in genes and wrd not in found_genes:
-                     found_genes.append(wrd)
-     return found_genes
+    if not brief_sum:
+        brief_sum = ""
+    if not descrip:
+        descrip = ""
+    found_genes = []
+    split_strings = re.findall(r"[A-Z0-9]+[-]*[A-Z0-9]+", brief_sum + " " + descrip)
+    for word in split_strings:
+        if word in genes and word not in found_genes:
+            found_genes.append(word)
+        if '-' in word:
+            split_word = re.findall(r"[A-Z0-9]+", word)
+            for wrd in split_word:
+                if wrd in genes and wrd not in found_genes:
+                    found_genes.append(wrd)
+    return found_genes
 
 def find_strings(brief_sum, descrip):
+    if not brief_sum:
+        brief_sum = ""
+    if not descrip:
+        descrip = ""
     found_strings = []
     if ("NGS" in brief_sum) or ("NGS" in descrip):
         found_strings.append("NGS")

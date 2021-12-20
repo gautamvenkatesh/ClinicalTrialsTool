@@ -8,7 +8,7 @@ interface TrialRowProps {
     trials: Trial;
 }
 
-const LENGTH = 100;
+const LENGTH = 200;
 
  const TrialRow: React.FC<TrialRowProps> = ({trials}) => {
    //console.log(trials)

@@ -4,9 +4,12 @@ import datetime
 import pandas as pd
 import re
 from pymongo import MongoClient
+from requests.api import put
 from constants import FLAGGED_STRINGS, genes
 from mongodb_client import get_latest_nci_id
-from Utils import find_genes, find_strings
+from utils import find_genes, find_strings
+
+CONNECTION_STRING = "mongodb+srv://upsync:upsync@cluster0.p5teq.mongodb.net/test"
 
 def api_getter(date, start_index, size):
     #add more specifications
@@ -33,7 +36,7 @@ def sorting_df(df, nci_id):
     df.sort_values('nci_id', ascending=False, inplace=True)
     df.index = [i for i in range(len(df))]
 
-    new_df = df.where(df['nci_id'] >= nci_id)
+    new_df = df.where(df['nci_id'] > nci_id)
     new_df = new_df.dropna(subset=['nci_id'])
 
     values = {'brief_summary': "", 'detail_description': ""}
@@ -47,7 +50,6 @@ def sorting_df(df, nci_id):
         string_list.append(find_strings(new_df['brief_summary'].iloc[i], new_df['detail_description'].iloc[i]))
     new_df['found_genes'] = gene_list
     new_df['found_strings'] = string_list
-    
     return new_df    
 
 def get_new_trials():
@@ -62,7 +64,7 @@ def get_new_trials():
     data_df = pd.DataFrame(columns=columns)
 
     nci_id = get_latest_nci_id()
-    date = datetime.datetime.today() - datetime.timedelta(days = 14)
+    date = datetime.datetime.today() - datetime.timedelta(days = 7)
 
     # getting the total
     small_data = api_getter(date, '0', '1').json()
@@ -90,4 +92,31 @@ def get_new_trials():
     #data_df['start_date'] = [datetime.date.fromisoformat(date) for date in data_df['start_date']]
     
     return sorting_df(data_df, nci_id)
+
+def update_latest_nci_id(nci_id):
+
+    client = MongoClient(CONNECTION_STRING)
+    trials_db = client['burning_rock_db_v2']
+    trials = trials_db['latest']
+    trials.delete_many({})
+    trials.insert_one({'nci_id': nci_id})
+
+def put_trails():
+    # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
+    client = MongoClient(CONNECTION_STRING)
+
+    # Create the database for our example (we will use the same database throughout the tutorial
+    trials_db = client['burning_rock_db_v2']
+
+    # Creates a collection in the trials database
+    trials = trials_db['trials']
+
+    # CHANGE THIS: assign trials_df to a dataframe of accessed trials
+    new_trials = get_new_trials()
+    
+    if not new_trials.empty:
+        max_nci = max(new_trials['nci_id'])
+        update_latest_nci_id(max_nci)
+        # Adds to the trials collections
+        trials.insert_many(new_trials.to_dict('records'))
 

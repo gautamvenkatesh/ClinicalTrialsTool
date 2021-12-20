@@ -20,6 +20,6 @@ def get_trials_from_db():
     trials_collection = dbname['trials']
 
     #sort by descending for newest trials first
-    sorted_trials = trials_collection.find({}).sort('nct_id', pymongo.DESCENDING).limit(100)
+    sorted_trials = trials_collection.find({}).sort('nci_id', pymongo.DESCENDING).limit(100)
 
     return dumps(sorted_trials)
