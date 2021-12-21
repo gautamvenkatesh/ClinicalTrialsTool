@@ -50,9 +50,11 @@ cygwin in no-cygwin mode).
 import os
 import sys
 import copy
+import shlex
 from subprocess import Popen, PIPE, check_output
 import re
 
+import distutils.version
 from distutils.unixccompiler import UnixCCompiler
 from distutils.file_util import write_file
 from distutils.errors import (DistutilsExecError, CCompilerError,
@@ -405,9 +407,10 @@ def _find_exe_version(cmd):
     result = RE_VERSION.search(out_string)
     if result is None:
         return None
-    # LooseVersion works with strings
-    # so we need to decode our bytes
-    return LooseVersion(result.group(1).decode())
+    # LooseVersion works with strings; decode
+    ver_str = result.group(1).decode()
+    with distutils.version.suppress_known_deprecation():
+        return LooseVersion(ver_str)
 
 def get_versions():
     """ Try to find out the versions of gcc, ld and dllwrap.
@@ -419,5 +422,5 @@ def get_versions():
 
 def is_cygwincc(cc):
     '''Try to determine if the compiler that would be used is from cygwin.'''
-    out_string = check_output([cc, '-dumpmachine'])
+    out_string = check_output(shlex.split(cc) + ['-dumpmachine'])
     return out_string.strip().endswith(b'cygwin')

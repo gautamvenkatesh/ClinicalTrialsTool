@@ -1,5 +1,3 @@
-
-import json
 from pymongo import MongoClient
 import requests
 import json
@@ -65,19 +63,27 @@ def verify_greatest_nci(nci_id):
         return "NCI-" + str(nci_id)[0:4] + "-" + str(nci_id)[4:]
 
 def find_genes(brief_sum, descrip):
-     found_genes = []
-     split_strings = re.findall(r"[A-Z0-9]+[-]*[A-Z0-9]+", brief_sum + " " + descrip)
-     for word in split_strings:
-         if word in genes and word not in found_genes:
-             found_genes.append(word)
-         if '-' in word:
-             split_word = re.findall(r"[A-Z0-9]+", word)
-             for wrd in split_word:
-                 if wrd in genes and wrd not in found_genes:
-                     found_genes.append(wrd)
-     return found_genes
+    if not brief_sum:
+        brief_sum = ""
+    if not descrip:
+        descrip = ""
+    found_genes = []
+    split_strings = re.findall(r"[A-Z0-9]+[-]*[A-Z0-9]+", brief_sum + " " + descrip)
+    for word in split_strings:
+        if word in genes and word not in found_genes:
+            found_genes.append(word)
+        if '-' in word:
+            split_word = re.findall(r"[A-Z0-9]+", word)
+            for wrd in split_word:
+                if wrd in genes and wrd not in found_genes:
+                    found_genes.append(wrd)
+    return found_genes
 
 def find_strings(brief_sum, descrip):
+    if not brief_sum:
+        brief_sum = ""
+    if not descrip:
+        descrip = ""
     found_strings = []
     if ("NGS" in brief_sum) or ("NGS" in descrip):
         found_strings.append("NGS")
@@ -85,12 +91,10 @@ def find_strings(brief_sum, descrip):
         if (word in brief_sum.lower()) or (word in descrip.lower()):
             found_strings.append(word)
     return found_strings
-
 #Utils End
 
 #Cronjob Start
 CONNECTION_STRING = "mongodb+srv://upsync:upsync@cluster0.p5teq.mongodb.net/test"
-
 
 def api_getter(date, start_index, size):
     #add more specifications
@@ -117,7 +121,7 @@ def sorting_df(df, nci_id):
     df.sort_values('nci_id', ascending=False, inplace=True)
     df.index = [i for i in range(len(df))]
 
-    new_df = df.where(df['nci_id'] >= nci_id)
+    new_df = df.where(df['nci_id'] > nci_id)
     new_df = new_df.dropna(subset=['nci_id'])
 
     values = {'brief_summary': "", 'detail_description': ""}
@@ -131,14 +135,7 @@ def sorting_df(df, nci_id):
         string_list.append(find_strings(new_df['brief_summary'].iloc[i], new_df['detail_description'].iloc[i]))
     new_df['found_genes'] = gene_list
     new_df['found_strings'] = string_list
-    
     return new_df    
-def get_latest_nci_id():
-    client = MongoClient(CONNECTION_STRING)
-    trials_db = client['burning_rock_db_v2']
-    trials = trials_db['latest']
-    nci_id = trials.find_one()
-    return nci_id['nci_id']
 
 def get_new_trials():
     # Parameters: date, nci_id
@@ -152,7 +149,7 @@ def get_new_trials():
     data_df = pd.DataFrame(columns=columns)
 
     nci_id = get_latest_nci_id()
-    date = datetime.datetime.today() - datetime.timedelta(days = 14)
+    date = datetime.datetime.today() - datetime.timedelta(days = 7)
 
     # getting the total
     small_data = api_getter(date, '0', '1').json()
@@ -181,9 +178,37 @@ def get_new_trials():
     
     return sorting_df(data_df, nci_id)
 
+def update_latest_nci_id(nci_id):
+
+    client = MongoClient(CONNECTION_STRING)
+    trials_db = client['burning_rock_db_v2']
+    trials = trials_db['latest']
+    trials.delete_many({})
+    trials.insert_one({'nci_id': nci_id})
+
+def put_trails():
+    # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
+    client = MongoClient(CONNECTION_STRING)
+
+    # Create the database for our example (we will use the same database throughout the tutorial
+    trials_db = client['burning_rock_db_v2']
+
+    # Creates a collection in the trials database
+    trials = trials_db['trials']
+
+    # CHANGE THIS: assign trials_df to a dataframe of accessed trials
+    new_trials = get_new_trials()
+    
+    if not new_trials.empty:
+        max_nci = max(new_trials['nci_id'])
+        update_latest_nci_id(max_nci)
+        # Adds to the trials collections
+        trials.insert_many(new_trials.to_dict('records'))
+
 #Cronjob end
 
 #Constants start
+# should I account for capitalized flagged string words?
 genes = ['EPHA7', 'ERCC2', 'CTNNB1', 'GID4', 'KDM5C', 'IFNGR1', 'CDKN2A', 'BCORL1', 'SOX9', 'ALOX12B', 'PDCD1LG2', 'H3F3C', 'ZBTB2', 'NTRK3',
            'CDK6', 'BCL2L1', 'MUTYH', 'DCUN1D1', 'AKT1', 'FGF19', 'NBN', 'CTNNA1', 'ERBB3', 'RAC1', 'BARD1', 'ERG', 'FYN', 'STK11', 'IRF4', 'PRKDC',
            'NUTM1', 'POLE', 'MAP3K1', 'KMT2C', 'PBRM1', 'FANCI', 'PARP2', 'HIST1H3C', 'SLIT2', 'CDKN2C', 'SMARCD1', 'RAD50', 'CIC', 'FLT3', 'GATA1',
@@ -237,7 +262,6 @@ FLAGGED_STRINGS = [
 
 #lambda_function start
 def update_latest_nci_id(nci_id):
-
     client = MongoClient(CONNECTION_STRING)
     trials_db = client['burning_rock_db_v2']
     trials = trials_db['latest']
@@ -251,29 +275,9 @@ def get_latest_nci_id():
     nci_id = trials.find_one()
     return nci_id['nci_id']
 
-def put_trails():
-    # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
-    client = MongoClient(CONNECTION_STRING)
-
-    # Create the database for our example (we will use the same database throughout the tutorial
-    trials_db = client['burning_rock_db_v2']
-
-    # Creates a collection in the trials database
-    trials = trials_db['trials']
-
-    # CHANGE THIS: assign trials_df to a dataframe of accessed trials
-    new_trials = get_new_trials()
-    
-    if not new_trials.empty:
-        max_nci = max(new_trials['nci_id'])
-        update_latest_nci_id(max_nci)
-        # Adds to the trials collections
-        trials.insert_many(new_trials.to_dict('records'))
-    return new_trials
-
 def lambda_handler(event, context):
     
     return {
         'statusCode': 200,
-        'body': json.dumps(put_trails())
+        'body': json.dumps("New trials successfully retrieved.")
     }
